@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>EarthMC日本ガイド</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            color: #ffffff;
+            line-height: 1.6;
+            margin: 0;
+            padding: 30px 15px;
+            background: linear-gradient(135deg, #2bb673 0%, #17a2b8 50%, #f39c12 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.85);
+            color: #ffffff;
+            padding: 35px 25px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+        .header p {
+            margin: 0;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+        .card {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #ffffff;
+            backdrop-filter: blur(5px);
+            border-radius: 14px;
+            padding: 22px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            border-left: 6px solid #2ecc71; 
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .card.warning {
+            border-left-color: #f1c40f; 
+        }
+        .card.command {
+            border-left-color: #3498db; 
+        }
+        .card.shop {
+            border-left-color: #e74c3c;
+        }
+        h2 {
+            font-size: 19px;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        p {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #ecf0f1;
+        }
+        p:last-child {
+            margin-bottom: 0;
+        }
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 14px;
+            color: #ecf0f1;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        details {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            transition: all 0.25s ease;
+        }
+        details[open] {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        summary {
+            font-weight: bold;
+            font-size: 14.5px;
+            color: #ffffff;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            padding-right: 30px;
+            user-select: none;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary::after {
+            content: "";
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            transform: translateY(-70%) rotate(45deg);
+            transition: transform 0.3s ease;
+        }
+        details[open] summary::after {
+            transform: translateY(-30%) rotate(225deg);
+        }
+        .details-content {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            color: #ecf0f1;
+        }
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 13.5px;
+        }
+        .command-table th, .command-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .command-table th {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .command-table td {
+            color: #ecf0f1;
+        }
+        .command-table td code {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #74b9ff;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .note {
+            background-color: rgba(52, 152, 219, 0.2);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13.5px;
+            margin-top: 10px;
+            color: #74b9ff;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+        /* ページ切り替え用クラス */
+        .lang-section {
+            display: none;
+        }
+        .lang-section.active {
+            display: block;
+        }
+        /* ページネーション（1 2 3 >）のスタイル */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        .page-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .page-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
+        }
+        .page-btn.active {
+            background: #2ecc71;
+            border-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 共通ヘッダー -->
+        <div class="header">
+            <h1 id="pageTitle">🌍 EarthMC日本ガイド</h1>
+            <p id="pageDesc">EMCへようこそ！ここでは基本ガイドや便利コマンドをご紹介します。</p>
+        </div>
+
+        <!-- ==================== 【1ページ目：日本語】 ==================== -->
+        <div id="section-1" class="lang-section active">
+            <div class="card">
+                <h2>💡 基本情報 & よくある質問</h2>
+                <details>
+                    <summary>Q. EMCの通貨は何？</summary>
+                    <div class="details-content">
+                        <p>EMCの通貨は基本的に<strong>「金インゴット」</strong>です。町や国の作成、買い物など様々な用途に使えます。</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. 大事な物はどこにしまえばいい？</summary>
+                    <div class="details-content">
+                        <p>紛失や略奪を防ぐため、金や貴重品は基本的に<strong>エンダーチェストに入れておく</strong>のが安全です。</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. まず最初は何をすればいい？</summary>
+                    <div class="details-content">
+                        <p>まずは様々な国を観光したり、気になった<strong>町に参加してみる</strong>のがおすすめです！</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. 自分の居る場所をどうやって確認すればいい？</summary>
+                    <div class="details-content">
+                        <p>チャット欄に <code>/map</code> と入力すると公式URLが表示されます。開くと現在地をマップでリアルタイムに確認できます。</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h2>💰 金の集め方（初心者向け）</h2>
+                <details open>
+                    <summary>初心者に一番おすすめな金稼ぎの方法は？</summary>
+                    <div class="details-content">
+                        <p>採掘やカジノなど色々ありますが、初心者に一番おすすめなのは<strong>「投票」</strong>です！</p>
+                        <ul>
+                            <li>チャット欄に <code>/vote</code> と入力し、4つの投票サイトにアクセスする。</li>
+                            <li>「私はロボットではありません」にチェックを付ける（MCIDが自動入力されているか確認）。</li>
+                            <li>投票ボタンを押すと、EMC内で<strong>ゴールドクレート</strong>が手に入る。</li>
+                            <li>クレートをクリックしてルーレットを回すと、ランダムで金が手に入る！</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card shop">
+                <h2>🛒 ショップの使い方</h2>
+                <details>
+                    <summary>ショップでアイテムを買う方法</summary>
+                    <div class="details-content">
+                        <p>ショップに売られているアイテムの買い方は、まず<strong>看板をクリック</strong>しましょう。するとチャット欄に買いたい個数を入力すると買う事ができます。</p>
+                        <div class="note">例: 丸石64個の場合、チャットに入れる個数は「1」になります。</div>
+                    </div>
+                </details>
+                <details>
+                    <summary>ショップでアイテムを売る方法</summary>
+                    <div class="details-content">
+                        <p>売り方も上記のやり方とほぼ同じです。売りたいアイテムを<strong>メインハンドに持って看板をクリック</strong>します。そしてチャット欄に売りたい個数を入力すると売却されます。</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>自分でショップを開く方法</summary>
+                    <div class="details-content">
+                        <p>ショップを自分でやる場合にはまず<strong>土地が必要</strong>です。</p>
+                        <ul>
+                            <li>市長にお願いして土地の種類をショップに変更して貰いましょう。</li>
+                            <li>チェストか樽を用意します。</li>
+                            <li>売りたいアイテムを持ってチェスト（または樽）をクリックします。</li>
+                            <li>売りたい値段を入力するとチェストがショップになります！</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h2>🏡 町に入ったらどうすればいい？</h2>
+                <details>
+                    <summary>町に参加したあとの流れを教えて</summary>
+                    <div class="details-content">
+                        <p>町に参加したら、まず市長に土地かアパートを貰えないか聞いてみましょう。</p>
+                        <div class="note">※土地やアパートが貰えるかは町や国によって異なります。貰えなかった場合は他の町を探すのもおすすめです。</div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card warning">
+                <h2>⚠️ 知っておくと便利な豆知識 & 注意点</h2>
+                <details open>
+                    <summary>⏳ 【重要】ログインを忘れずに（42日ルール）</summary>
+                    <div class="details-content">
+                        <p><strong>42日間EMCに一回もログインしないと、自動的に町を追い出されてしまいます。</strong></p>
+                        <p>市長もあなたはもう居なくなったと思って土地やアパートを他の人に渡してしまいます。なので42日の間一度でも良いのでログインをする様に心掛けましょう。</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>・領土外（荒野）の注意点</summary>
+                    <div class="details-content">
+                        <p>町や国の領土外はPVPエリアとなっており、誰でもPVPやブロック破壊ができます。入る時は十分に注意してください。</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>・リスポーン保護について</summary>
+                    <div class="details-content">
+                        <p>町や国にTPした直後は「リスポーン保護」が発動し、敵MOBの攻撃を受けなかったり死亡してもアイテムが戻ってきます。ただし、移動すると徐々に減って最終的に無くなるため注意してください。</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card command">
+                <h2>🛠️ EMCの基本コマンド一覧</h2>
+                <details open>
+                    <summary>よく使うコマンド一覧を表示する</summary>
+                    <div class="details-content">
+                        <p>基本のコマンド一覧は以下の通りです。</p>
+                        <table class="command-table">
+                            <tr><th>コマンド</th><th>説明</th></tr>
+                            <tr><td><code>/t spawn [町の名前]</code></td><td>指定した町にTPする</td></tr>
+                            <tr><td><code>/n spawn [国名]</code></td><td>指定した国にTPする</td></tr>
+                            <tr><td><code>/home</code></td><td>リス地を設定したベッドにTPする</td></tr>
+                            <tr><td><code>/m [プレイヤー名] [文章]</code></td><td>他のプレイヤーに個人メッセージを送る</td></tr>
+                            <tr><td><code>/japanese</code></td><td>日本のチャットに入る</td></tr>
+                            <tr><td><code>/tc</code></td><td>町のチャットに入る</td></tr>
+                            <tr><td><code>/nc</code></td><td>国のチャットに入る</td></tr>
+                            <tr><td><code>/bottle store max</code></td><td>自分の経験値を全てボトルにする</td></tr>
+                            <tr><td><code>/map</code></td><td>マップを見るURLを表示する</td></tr>
+                            <tr><td><code>/vote</code></td><td>投票サイトのリンクを表示する</td></tr>
+                            <tr><td><code>/g</code></td><td>グローバルチャットに参加出来る</td></tr>
+                            <tr><td><code>/t [町の名前]</code></td><td>町の情報を調べる事が出来る</td></tr>
+                            <tr><td><code>/n [国名]</code></td><td>国の情報を調べる事が出来る</td></tr>
+                            <tr><td><code>/res [プレイヤー名]</code></td><td>プレイヤーを調べる事が出来る</td></tr>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- ==================== 【2ページ目：英語】 ==================== -->
+        <div id="section-2" class="lang-section">
+            <div class="card">
+                <h2>💡 Basic Info & FAQ</h2>
+                <details>
+                    <summary>Q. What is the EMC Currency?</summary>
+                    <div class="details-content">
+                        <p>The currency in EMC is primarily gold ingots. Gold has many uses; for example, you can use it to found a town or nation, or to shop within towns.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. Where Should I Store Valuables?</summary>
+                    <div class="details-content">
+                        <p>It is generally safest to keep valuable items in an Ender Chest.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. What Should I Do First?</summary>
+                    <div class="details-content">
+                        <p>To start, we recommend sightseeing in various nations or joining a town.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. How Do I Check My Location?</summary>
+                    <div class="details-content">
+                        <p>To check your location, type <code>/map</code> in the chat box. An official URL will appear; open it to view your current location on the map.</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h2>💰 How Do I Collect Gold?</h2>
+                <details open>
+                    <summary>Recommended for beginners</summary>
+                    <div class="details-content">
+                        <p>There are many ways to earn items—such as mining, voting, or playing at the casino—but voting is the most recommended method for beginners.</p>
+                        <ul>
+                            <li>Type <code>/vote</code> in the chat; four sites will appear. Visit them and check the "I am not a robot" box.</li>
+                            <li>*Note: Your MCID is usually filled in automatically, but if it isn't, enter it yourself.</li>
+                            <li>Press the vote button. You will receive an item called a "Gold Crate" in EMC.</li>
+                            <li>Clicking this crate triggers a roulette-style draw that awards you a random amount of gold.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card shop">
+                <h2>🛒 About Shops</h2>
+                <details>
+                    <summary>How to buy items at a shop</summary>
+                    <div class="details-content">
+                        <p>To buy an item from a shop, first click on the sign. Then, enter the quantity you wish to purchase in the chat box.</p>
+                        <div class="note">(Example: To buy 64 cobblestones, enter "1" in the chat.)</div>
+                    </div>
+                </details>
+                <details>
+                    <summary>How to sell items at a shop</summary>
+                    <div class="details-content">
+                        <p>Selling works much the same way: hold the item you want to sell in your hand and click. Then, enter the quantity you wish to sell to complete the transaction.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>How to run your own shop</summary>
+                    <div class="details-content">
+                        <p>To run your own shop, you first need land.</p>
+                        <ul>
+                            <li>Ask the mayor to change the land type to "Shop."</li>
+                            <li>Prepare a chest or barrel.</li>
+                            <li>Hold the item you want to sell and click on the container.</li>
+                            <li>Enter your desired price, and the chest will become a shop.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h2>🏡 What Should I Do After Joining a Town?</h2>
+                <details>
+                    <summary>Next steps after joining</summary>
+                    <div class="details-content">
+                        <p>Once you join a town, try asking the mayor if you can be given a plot of land or an apartment. You will usually be able to get one, but if not, a different town might be a better choice.</p>
+                        <div class="note">*Note: Whether you can receive land or an apartment depends on the specific town or nation.</div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card warning">
+                <h2>⚠️ Useful Tips for EMC</h2>
+                <details open>
+                    <summary>⏳ Don't Forget to Log In (42-Day Rule)</summary>
+                    <div class="details-content">
+                        <p><strong>If you don't log in to EMC at least once every 42 days, you will be automatically evicted from your town.</strong></p>
+                        <p>The mayor will assume you have left and reassign your land or apartment to someone else. Make sure to log in at least once within that 42-day period.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>・Notes on Wilderness</summary>
+                    <div class="details-content">
+                        <p>Areas outside of town or national territories are PvP zones (the wilderness), where anyone can engage in PvP combat or destroy blocks. Please be very careful when entering these areas.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>・About Respawn Protection</summary>
+                    <div class="details-content">
+                        <p>After teleporting (TPing) to a town or nation, you have "respawn protection." While this protection is active, you won't take damage from hostile mobs, and you will get your items back if you die. However, this protection gradually wears off as you move and eventually disappears completely.</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card command">
+                <h2>🛠️ Basic EMC Commands</h2>
+                <details open>
+                    <summary>List of commands</summary>
+                    <div class="details-content">
+                        <p>The basic EMC commands are as follows:</p>
+                        <table class="command-table">
+                            <tr><th>Command</th><th>Description</th></tr>
+                            <tr><td><code>/t spawn [town]</code></td><td>Teleport to a town.</td></tr>
+                            <tr><td><code>/n spawn [nation]</code></td><td>Teleport to a nation.</td></tr>
+                            <tr><td><code>/home</code></td><td>Teleport to your bed spawn.</td></tr>
+                            <tr><td><code>/m [player] [msg]</code></td><td>Send a private message.</td></tr>
+                            <tr><td><code>/japanese</code></td><td>Join Japanese chat.</td></tr>
+                            <tr><td><code>/tc</code></td><td>Join town chat.</td></tr>
+                            <tr><td><code>/nc</code></td><td>Join nation chat.</td></tr>
+                            <tr><td><code>/bottle store max</code></td><td>Convert all XP into bottles.</td></tr>
+                            <tr><td><code>/map</code></td><td>View the live map URL.</td></tr>
+                            <tr><td><code>/vote</code></td><td>Access voting sites.</td></tr>
+                            <tr><td><code>/g</code></td><td>Join global chat.</td></tr>
+                            <tr><td><code>/t [town]</code></td><td>Check town information.</td></tr>
+                            <tr><td><code>/n [nation]</code></td><td>Check nation information.</td></tr>
+                            <tr><td><code>/res [player]</code></td><td>Look up a player.</td></tr>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- ==================== 【3ページ目：韓国語】 ==================== -->
+        <div id="section-3" class="lang-section">
+            <div class="card">
+                <h2>💡 기본 정보 & 자주 묻는 질문</h2>
+                <details>
+                    <summary>Q. EMC의 화폐는 무엇인가요?</summary>
+                    <div class="details-content">
+                        <p>EMC의 주된 화폐는 금괴(Gold Ingot)입니다. 금은 다양한 용도로 쓰입니다. 예를 들어 마을이나 국가를 건설하거나, 마을 내 상점에서 물건을 살 때 사용할 수 있습니다.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. 귀중품은 어디에 보관하나요?</summary>
+                    <div class="details-content">
+                        <p>귀중한 아이템은 엔더 상자에 보관하는 것이 가장 안전합니다.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. 무엇부터 해야 하나요?</summary>
+                    <div class="details-content">
+                        <p>처음 시작할 때는 여러 국가를 둘러보거나 마을에 가입하는 것을 추천합니다.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Q. 현재 위치는 어떻게 확인하나요?</summary>
+                    <div class="details-content">
+                        <p>위치를 확인하려면 채팅창에 <code>/map</code>을 입력하세요. 공식 URL이 표시되는데, 이를 열면 지도상에서 현재 위치를 확인할 수 있습니다.</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h2>💰 금은 어떻게 모으나요?</h2>
+                <details open>
+                    <summary>초보자에게 추천하는 금 모으기 방법</summary>
+                    <div class="details-content">
+                        <p>채굴, 투표, 카지노 이용 등 아이템을 얻는 방법은 많지만, 초보자에게는 투표가 가장 추천되는 방법입니다.</p>
+                        <ul>
+                            <li>채팅창에 <code>/vote</code>를 입력하세요. 4개의 사이트가 나타납니다. 각 사이트를 방문하여 "로봇이 아닙니다(I am not a robot)" 확인란을 체크하세요.</li>
+                            <li>*참고: MCID는 보통 자동으로 입력되지만, 그렇지 않은 경우 직접 입력해야 합니다.</li>
+                            <li>투표 버튼을 누르세요. 그러면 EMC에서 "Gold Crate(골드 상자)"라는 아이템을 받게 됩니다.</li>
+                            <li>이 상자를 클릭하면 룰렛 방식의 추첨이 진행되어 무작위 양의 골드를 획득할 수 있습니다.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card shop">
+                <h2>🛒 상점 이용 안내</h2>
+                <details>
+                    <summary>상점에서 아이템을 구매하는 방법</summary>
+                    <div class="details-content">
+                        <p>상점에서 아이템을 구매하려면 먼저 표지판을 클릭하세요. 그런 다음 채팅창에 구매할 수량을 입력합니다.</p>
+                        <div class="note">(예: 조약돌 64개를 구매하려면 채팅창에 '1'을 입력하세요.)</div>
+                    </div>
+                </details>
+                <details>
+                    <summary>상점에서 아이템을 판매하는 방법</summary>
+                    <div class="details-content">
+                        <p>판매 방법도 비슷합니다. 판매할 아이템을 손에 들고 클릭한 뒤, 판매할 수량을 입력하면 거래가 완료됩니다.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>직접 상점을 운영하는 방법</summary>
+                    <div class="details-content">
+                        <p>직접 상점을 운영하려면 먼저 땅이 필요합니다.</p>
+                        <ul>
+                            <li>시장에게 요청하여 땅의 유형을 'Shop(상점)'으로 변경하세요.</li>
+                            <li>상자(Chest)나 통(Barrel)을 준비합니다.</li>
+                            <li>판매할 아이템을 손에 들고 해당 보관함을 클릭하세요.</li>
+                            <li>원하는 가격을 입력하면 상자가 상점 기능을 갖게 됩니다.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h2>🏡 마을에 가입한 후에는 무엇을 해야 하나요?</h2>
+                <details>
+                    <summary>마을 가입 후 흐름</summary>
+                    <div class="details-content">
+                        <p>마을에 가입하면 시장에게 땅이나 아파트를 받을 수 있는지 물어보세요. 대개는 받을 수 있겠지만, 만약 받을 수 없다면 다른 마을을 알아보는 것이 더 나을 수도 있습니다.</p>
+                        <div class="note">*참고: 땅이나 아파트를 받을 수 있는지는 해당 마을이나 국가의 정책에 따라 다릅니다.</div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card warning">
+                <h2>⚠️ EMC 유용한 팁</h2>
+                <details open>
+                    <summary>⏳ 로그인 잊지 마세요 (42일 규칙)</summary>
+                    <div class="details-content">
+                        <p><strong>42일 동안 한 번도 EMC에 접속하지 않으면 마을에서 자동으로 추방됩니다.</strong></p>
+                        <p>시장은 귀하가 떠난 것으로 간주하여 귀하의 땅이나 아파트를 다른 사람에게 재할당할 수 있습니다. 반드시 42일 이내에 한 번은 접속해 주세요.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>・영토 외곽(황야) 주의사항</summary>
+                    <div class="details-content">
+                        <p>마을이나 국가 영토 밖의 지역은 PvP 구역(야생 지역)으로, 누구나 PvP 전투를 벌이거나 블록을 파괴할 수 있습니다. 이 지역에 들어갈 때는 각별히 주의하세요.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>・리스폰 보호에 대해</summary>
+                    <div class="details-content">
+                        <p>마을이나 국가로 순간 이동(TP)한 직후에는 "리스폰 보호(respawn protection)" 상태가 됩니다. 이 보호 상태가 유지되는 동안에는 적대적인 몹에게 피해를 입지 않으며, 사망하더라도 아이템을 되찾을 수 있습니다. 하지만 움직이면 보호 효과가 서서히 약해지다가 결국 완전히 사라집니다.</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card command">
+                <h2>🛠️ 기본적인 EMC 명령어</h2>
+                <details open>
+                    <summary>명령어 목록 보기</summary>
+                    <div class="details-content">
+                        <p>기본적인 EMC 명령어는 다음과 같습니다.</p>
+                        <table class="command-table">
+                            <tr><th>명령어</th><th>설명</th></tr>
+                            <tr><td><code>/t spawn [마을 이름]</code></td><td>마을로 순간 이동합니다.</td></tr>
+                            <tr><td><code>/n spawn [국가 이름]</code></td><td>국가로 순간 이동합니다.</td></tr>
+                            <tr><td><code>/home</code></td><td>스폰 지점으로 설정한 침대 위치로 순간 이동합니다.</td></tr>
+                            <tr><td><code>/m [플레이어] [내용]</code></td><td>다른 플레이어에게 개인 메시지를 보냅니다.</td></tr>
+                            <tr><td><code>/japanese</code></td><td>일본어 채팅 채널에 참여합니다.</td></tr>
+                            <tr><td><code>/tc</code></td><td>도시 채팅 채널에 참여합니다.</td></tr>
+                            <tr><td><code>/nc</code></td><td>국가 채팅 채널에 참여합니다.</td></tr>
+                            <tr><td><code>/bottle store max</code></td><td>모든 경험치를 경험치 병으로 변환합니다.</td></tr>
+                            <tr><td><code>/map</code></td><td>/map을 사용하여 지도를 확인하세요.</td></tr>
+                            <tr><td><code>/vote</code></td><td>/vote를 사용하여 투표 사이트에 접속하세요.</td></tr>
+                            <tr><td><code>/g</code></td><td>/g를 사용하여 전체 채팅(global chat)에 참여하세요.</td></tr>
+                            <tr><td><code>/t [마을 이름]</code></td><td>/t를 사용하여 마을 정보를 확인하세요.</td></tr>
+                            <tr><td><code>/n [국가 이름]</code></td><td>/n을 사용하여 국가 정보를 확인하세요.</td></tr>
+                            <tr><td><code>/res [플레이어 이름]</code></td><td>/res [플레이어 이름]을 사용하여 플레이어를 조회하세요.</td></tr>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- ==================== 【下部のページネーション (1 2 3 >)】 ==================== -->
+        <div class="pagination">
+            <button class="page-btn active" onclick="switchPage(1)">1</button>
+            <button class="page-btn" onclick="switchPage(2)">2</button>
+            <button class="page-btn" onclick="switchPage(3)">3</button>
+            <button class="page-btn" onclick="nextPage()">&gt;</button>
+        </div>
+    </div>
+
+    <script>
+        const pageData = {
+            1: {
+                title: "🌍 EarthMC日本ガイド",
+                desc: "EMCへようこそ！ここでは基本ガイドや便利コマンドをご紹介します。"
+            },
+            2: {
+                title: "🌍 Earth MC Japan Guide",
+                desc: 'Welcome to EMC!<br>We refer to Earth MC as "EMC" for short.<br>Here, we introduce the basics and essential commands.'
+            },
+            3: {
+                title: "🌍 Earth MC 일본 가이드",
+                desc: "EMC에 오신 것을 환영합니다!<br>Earth MC는 줄여서 'EMC'라고 부릅니다.<br>여기서는 기본적인 내용과 필수 명령어를 소개해 드립니다."
+            }
+        };
+
+        let currentPage = 1;
+
+        function switchPage(pageNum) {
+            currentPage = pageNum;
+
+            // 全セクションを非表示にして、選ばれたページだけ表示
+            document.querySelectorAll('.lang-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('section-' + currentPage).classList.add('active');
+
+            // ヘッダーのテキストを更新
+            document.getElementById('pageTitle').textContent = pageData[currentPage].title;
+            document.getElementById('pageDesc').innerHTML = pageData[currentPage].desc;
+
+            // ページネーションのボタンのアクティブ状態を更新
+            document.querySelectorAll('.page-btn').forEach((btn, index) => {
+                if (index < 3) {
+                    if (index + 1 === currentPage) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                }
+            });
+
+            // ページトップへスムーズにスクロール
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextPage() {
+            let next = currentPage + 1;
+            if (next > 3) {
+                next = 1; // 3ページの次は1ページ目に戻る
+            }
+            switchPage(next);
+        }
+    </script>
+</body>
+</html>
