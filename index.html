@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>EarthMC日本ガイド</title>
+    <title>EarthMC非公式日本ガイド</title>
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -181,7 +181,7 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin: 30px 0;
+            margin: 30px 0 15px 0;
         }
         .page-btn {
             background: rgba(0, 0, 0, 0.7);
@@ -202,6 +202,14 @@
             background: #2ecc71;
             border-color: #2ecc71;
         }
+        /* フッタークレジットのスタイル */
+        .footer-credit {
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
     </style>
 </head>
 <body>
@@ -209,7 +217,7 @@
     <div class="container">
         <!-- 共通ヘッダー -->
         <div class="header">
-            <h1 id="pageTitle">🌍 EarthMC日本ガイド</h1>
+            <h1 id="pageTitle">🌍 EarthMC非公式日本ガイド</h1>
             <p id="pageDesc">EMCへようこそ！ここでは基本ガイドや便利コマンドをご紹介します。</p>
         </div>
 
@@ -631,20 +639,25 @@
             <button class="page-btn" onclick="switchPage(3)">3</button>
             <button class="page-btn" onclick="nextPage()">&gt;</button>
         </div>
+
+        <!-- ==================== 【フッタークレジット】 ==================== -->
+        <div class="footer-credit">
+            <p style="margin: 0;">Code by Gemini | Author by Pixel | Hosted by GitHub</p>
+        </div>
     </div>
 
     <script>
         const pageData = {
             1: {
-                title: "🌍 EarthMC日本ガイド",
+                title: "🌍 EarthMC非公式日本ガイド",
                 desc: "EMCへようこそ！ここでは基本ガイドや便利コマンドをご紹介します。"
             },
             2: {
-                title: "🌍 Earth MC Japan Guide",
+                title: "🌍 Unofficial Earth MC Japan Guide",
                 desc: 'Welcome to EMC!<br>We refer to Earth MC as "EMC" for short.<br>Here, we introduce the basics and essential commands.'
             },
             3: {
-                title: "🌍 Earth MC 일본 가이드",
+                title: "🌍 Earth MC 비공식 일본 가이드",
                 desc: "EMC에 오신 것을 환영합니다!<br>Earth MC는 줄여서 'EMC'라고 부릅니다.<br>여기서는 기본적인 내용과 필수 명령어를 소개해 드립니다."
             }
         };
